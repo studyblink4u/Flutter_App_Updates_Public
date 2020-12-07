@@ -69,8 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _getReddit() async {
-    var htmlBody = await RedditNetwork.getRedditData();
-    redditObjectList = RedditObjectList(jsonResponse: htmlBody);
+    if (redditObjectList == null) {
+      var htmlBody = await RedditNetwork.getRedditData();
+      redditObjectList = RedditObjectList(jsonResponse: htmlBody);
+    }
+
     setState(() {
       currentView =
           RedditListView(redditObjects: redditObjectList.getObjectList());
@@ -79,8 +82,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _getInsta() async {
-    var htmlBody = await InstaNetwork.getInstaData();
-    instaObjectList = InstaObjectList(jsonResponse: htmlBody);
+    if (instaObjectList == null) {
+      var htmlBody = await InstaNetwork.getInstaData();
+      instaObjectList = InstaObjectList(jsonResponse: htmlBody);
+    }
     setState(() {
       currentView =
           InstaListView(instaObjects: instaObjectList.getObjectList());
@@ -89,11 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _getTweet() async {
-    var htmlBody = await TweetNetwork.getTweetData();
-    var pinnedTweetHtmlBody = await PinnedTweet.getPinnedTweet();
+    if (tweetObjectList == null && pinnedTweetObjectList == null) {
+      var htmlBody = await TweetNetwork.getTweetData();
+      var pinnedTweetHtmlBody = await PinnedTweet.getPinnedTweet();
 
-    pinnedTweetObjectList = TweetObjectList(jsonResponse: pinnedTweetHtmlBody);
-    tweetObjectList = TweetObjectList(jsonResponse: htmlBody);
+      pinnedTweetObjectList =
+          TweetObjectList(jsonResponse: pinnedTweetHtmlBody);
+      tweetObjectList = TweetObjectList(jsonResponse: htmlBody);
+    }
     setState(() {
       currentView = TweetListView(
         tweetObjects: tweetObjectList.getObjectList(),
@@ -127,8 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.red,
-          buttonBackgroundColor: Colors.red,
+          buttonBackgroundColor: Colors.deepPurple,
           height: 50.0,
           index: 0,
           items: [Text('reddit'), Text('insta'), Text('tweet')],
@@ -189,7 +196,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     height: 5.0,
                     width: double.infinity,
-                    color: Colors.red,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                          Colors.pink,
+                          Colors.pinkAccent,
+                          Colors.purpleAccent,
+                          Colors.purple,
+                          Colors.deepPurpleAccent,
+                          Colors.deepPurple
+                        ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight)),
                   ),
                 ],
               ),

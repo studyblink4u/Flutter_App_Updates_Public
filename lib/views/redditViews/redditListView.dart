@@ -13,7 +13,7 @@ class RedditListView extends StatelessWidget {
     return ListWheelScrollView(
       children: objects,
       itemExtent: 100.0,
-      offAxisFraction: 1.5,
+      offAxisFraction: -0.5,
     );
   }
 }

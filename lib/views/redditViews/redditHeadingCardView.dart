@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class RedditHeadingCardView extends StatelessWidget {
@@ -13,10 +14,9 @@ class RedditHeadingCardView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            child: Image.network(
-              redditObject.getThumnail(),
-              height: 100.0,
-              width: 100.0,
+            child: CachedNetworkImage(
+              placeholder: (context, url) => Icon(Icons.cloud_download),
+              imageUrl: redditObject.getThumnail(),
               fit: BoxFit.fitWidth,
             ),
           ),

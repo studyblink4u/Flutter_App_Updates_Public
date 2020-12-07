@@ -7,7 +7,10 @@ class RedditObject {
   RedditObject({this.thumnail, this.updateName, this.htmlText, this.unixTime});
 
   String getThumnail() {
-    return thumnail;
+    if (thumnail != 'self') {
+      return thumnail;
+    } else
+      return 'https://styles.redditmedia.com/t5_penom/styles/communityIcon_386whbh0z5041.png?width=256&s=21215a34680fb44ad3e547f86c5abeb5dd960b8b';
   }
 
   String getUpdateName() {
@@ -34,8 +37,11 @@ class RedditObject {
     var time =
         DateTime.fromMillisecondsSinceEpoch(unixTime * 1000, isUtc: true);
     var now = DateTime.now();
-    var original = now.difference(time).inDays;
-
-    return 'Posted $original days ago';
+    int original = now.difference(time).inDays;
+    if (original == 0) {
+      return 'Posted Today';
+    } else {
+      return '$original days ago';
+    }
   }
 }

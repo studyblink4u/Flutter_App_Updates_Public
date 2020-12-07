@@ -4,9 +4,10 @@ class RedditObjectList {
   final jsonResponse;
   RedditObjectList({this.jsonResponse});
 
+  List<RedditObject> redditObjects = [];
+
   List<RedditObject> getObjectList() {
     final htmlBody = jsonResponse['data']['children'];
-    List<RedditObject> redditObjects = [];
     for (var child in htmlBody) {
       var heading = child['data']['title'];
       var thumbnail = child['data']['thumbnail'];
