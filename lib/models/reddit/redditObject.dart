@@ -40,6 +40,8 @@ class RedditObject {
     int original = now.difference(time).inDays;
     if (original == 0) {
       return 'Posted Today';
+    } else if (original == 1) {
+      return '$original day ago';
     } else {
       return '$original days ago';
     }

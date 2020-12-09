@@ -1,9 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class RedditHeadingCardView extends StatelessWidget {
+class RedditHeadingCardView extends StatefulWidget {
   final redditObject;
   RedditHeadingCardView({this.redditObject});
+  @override
+  _RedditHeadingCardViewState createState() => _RedditHeadingCardViewState();
+}
+
+class _RedditHeadingCardViewState extends State<RedditHeadingCardView> {
+  var image;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    image = Image.network(widget.redditObject.getThumnail());
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    precacheImage(image.image, context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +34,7 @@ class RedditHeadingCardView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            child: CachedNetworkImage(
-              placeholder: (context, url) => Icon(Icons.cloud_download),
-              imageUrl: redditObject.getThumnail(),
-              fit: BoxFit.fitWidth,
-            ),
+            child: image,
           ),
           SizedBox(
             width: 10.0,
@@ -29,7 +45,7 @@ class RedditHeadingCardView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  redditObject.getUpdateName(),
+                  widget.redditObject.getUpdateName(),
                   style: TextStyle(fontWeight: FontWeight.bold),
                   softWrap: true,
                 ),
@@ -39,7 +55,7 @@ class RedditHeadingCardView extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Text(
-                    redditObject.getPostDay(),
+                    widget.redditObject.getPostDay(),
                     textAlign: TextAlign.start,
                   ),
                 ),

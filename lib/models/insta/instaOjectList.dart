@@ -10,8 +10,13 @@ class InstaObjectList {
     List<InstaObject> instaObjectList = [];
 
     for (var child in htmlBody) {
-      var heading =
-          child['node']['edge_media_to_caption']['edges'][0]['node']['text'];
+      var heading;
+      try {
+        heading =
+            child['node']['edge_media_to_caption']['edges'][0]['node']['text'];
+      } catch (error) {
+        heading = '';
+      }
       var thumbnail = child['node']['display_url'];
       int unixTime = child['node']['taken_at_timestamp'];
       var mediaUrl;
@@ -26,6 +31,7 @@ class InstaObjectList {
           unixTime: unixTime,
           mediaUrl: mediaUrl));
     }
+    print(instaObjectList.length);
     return instaObjectList;
   }
 }

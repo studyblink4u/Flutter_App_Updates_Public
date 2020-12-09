@@ -19,8 +19,13 @@ class InstaObject {
         DateTime.fromMillisecondsSinceEpoch(unixTime * 1000, isUtc: true);
     var now = DateTime.now();
     var original = now.difference(time).inDays;
-
-    return 'Posted $original days ago';
+    if (original == 0) {
+      return 'Posted Today';
+    } else if (original == 1) {
+      return '$original day ago';
+    } else {
+      return '$original days ago';
+    }
   }
 
   String getMediaUrl() {

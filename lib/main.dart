@@ -55,8 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     done = false;
-    // _getTweet();
-    _getReddit();
+    // _getInsta();
+    // _getReddit();
+    _getTweet();
     flareAnimation = 'rotate right';
   }
 
@@ -136,8 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
           buttonBackgroundColor: Colors.deepPurple,
-          height: 50.0,
-          index: 0,
+          height: height * 0.15 >= 75.0 ? 50.0 : height * 0.15,
+          index: 2,
           items: [Text('reddit'), Text('insta'), Text('tweet')],
           onTap: (index) {
             setState(() {
@@ -186,11 +187,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 50.0,
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        child: done ? currentView : CircularProgressIndicator(),
-                      ),
+                    child: Container(
+                      child: done ? currentView : CircularProgressIndicator(),
                     ),
                   ),
                   Container(
