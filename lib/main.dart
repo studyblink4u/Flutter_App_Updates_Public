@@ -1,7 +1,9 @@
+import 'package:codm/animations/movingDot.dart';
 import 'package:codm/customPaint.dart';
 import 'package:codm/models/insta/instaOjectList.dart';
 import 'package:codm/models/reddit/redditObjectList.dart';
 import 'package:codm/models/tweet/tweetObjectList.dart';
+import 'package:codm/screenSize.dart';
 import 'package:codm/utils/instaNetwork.dart';
 import 'package:codm/utils/redditNetwork.dart';
 import 'package:codm/utils/tweetNetwork.dart';
@@ -10,7 +12,6 @@ import 'package:codm/views/redditViews/redditListView.dart';
 import 'package:codm/views/twitterViews/tweetListView.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controller.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenSize(size: WidgetsBinding.instance.window.physicalSize);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -48,25 +50,25 @@ class _MyHomePageState extends State<MyHomePage> {
   TweetObjectList tweetObjectList;
   TweetObjectList pinnedTweetObjectList;
   final FlareControls controls = FlareControls();
-  String flareAnimation;
+  String flutterAnimation;
+  MovingDot classMovingDots = MovingDot();
+  List<Widget> dots;
+  List<Widget> bottomDots;
+  List<bool> isSelected;
+  int _index;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isSelected = [true, false];
     done = false;
-    // _getInsta();
+    _getInsta();
     // _getReddit();
-    _getTweet();
-    flareAnimation = 'rotate right';
-  }
-
-  void playRight() {
-    controls.play('rotate right');
-  }
-
-  void playLeft() {
-    controls.play('rotate left');
+    // _getTweet();
+    flutterAnimation = 'rotate left';
+    dots = classMovingDots.getDots(dotCount: 300);
+    bottomDots = classMovingDots.getDots(dotCount: 100);
   }
 
   _getReddit() async {
@@ -76,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
+      _index = 0;
       currentView =
           RedditListView(redditObjects: redditObjectList.getObjectList());
       done = true;
@@ -88,8 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
       instaObjectList = InstaObjectList(jsonResponse: htmlBody);
     }
     setState(() {
-      currentView =
-          InstaListView(instaObjects: instaObjectList.getObjectList());
+      _index = 1;
+      currentView = InstaListView(
+          instaObjects: instaObjectList.getObjectList(), mode: isSelected[0]);
       done = true;
     });
   }
@@ -98,12 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
     if (tweetObjectList == null && pinnedTweetObjectList == null) {
       var htmlBody = await TweetNetwork.getTweetData();
       var pinnedTweetHtmlBody = await PinnedTweet.getPinnedTweet();
-
       pinnedTweetObjectList =
           TweetObjectList(jsonResponse: pinnedTweetHtmlBody);
       tweetObjectList = TweetObjectList(jsonResponse: htmlBody);
     }
     setState(() {
+      _index = 2;
       currentView = TweetListView(
         tweetObjects: tweetObjectList.getObjectList(),
         pinnedTweetObjects: pinnedTweetObjectList.getObjectList(),
@@ -128,6 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Color getColor(bool state) {
+    return state ? Colors.black : Colors.white;
+  }
+
   @override
   Widget build(BuildContext context) {
     var height =
@@ -135,21 +143,48 @@ class _MyHomePageState extends State<MyHomePage> {
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          buttonBackgroundColor: Colors.deepPurple,
-          height: height * 0.15 >= 75.0 ? 50.0 : height * 0.15,
-          index: 2,
-          items: [Text('reddit'), Text('insta'), Text('tweet')],
-          onTap: (index) {
-            setState(() {
-              done = false;
-            });
-            setPage(index);
-          },
-        ),
+        bottomNavigationBar: done
+            ? CurvedNavigationBar(
+                index: _index,
+                dots: isSelected[0] ? bottomDots : [],
+                color: getColor(isSelected[0]),
+                height: height * 0.15 >= 75.0 ? 50.0 : height * 0.15,
+                items: [
+                  Text(
+                    'reddit',
+                    style: TextStyle(color: getColor(isSelected[1])),
+                  ),
+                  Text(
+                    'insta',
+                    style: TextStyle(color: getColor(isSelected[1])),
+                  ),
+                  Text(
+                    'tweet',
+                    style: TextStyle(color: getColor(isSelected[1])),
+                  )
+                ],
+                onTap: (index) {
+                  setState(() {
+                    done = false;
+                  });
+                  setPage(index);
+                },
+              )
+            : Container(
+                color: Colors.transparent,
+                height: 0.1,
+              ),
         body: Container(
           child: Stack(
             children: [
+              Container(
+                color: isSelected[0] ? Colors.black : Colors.white,
+                child: isSelected[0]
+                    ? Stack(
+                        children: dots,
+                      )
+                    : Container(),
+              ),
               Container(
                 child: CustomPaint(
                   painter: MainScreenTopCustomPaint(),
@@ -167,12 +202,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 25.0,
                   child: FlareActor(
                     'assets/flare/menu_bar_translate.flr',
-                    animation: flareAnimation,
+                    animation: flutterAnimation,
                     controller: controls,
                     callback: (string) {
-                      Future.delayed(const Duration(seconds: 1), () {
+                      Future.delayed(Duration(seconds: 1), () {
                         setState(() {
-                          flareAnimation = flareAnimation == 'rotate right'
+                          flutterAnimation = string == 'rotate right'
                               ? 'rotate left'
                               : 'rotate right';
                         });
@@ -182,13 +217,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    height: 50.0,
+                    height: height * 0.12,
                   ),
                   Expanded(
                     child: Container(
-                      child: done ? currentView : CircularProgressIndicator(),
+                      width: width * 0.90,
+                      child: done
+                          ? Container(child: Center(child: currentView))
+                          : Container(
+                              height: 100.0,
+                              width: 100.0,
+                              child: CircularProgressIndicator(),
+                            ),
                     ),
                   ),
                   Container(
@@ -208,6 +251,30 @@ class _MyHomePageState extends State<MyHomePage> {
                             end: Alignment.centerRight)),
                   ),
                 ],
+              ),
+              Positioned(
+                top: height * 0.05,
+                left: width * 0.70,
+                child: ToggleButtons(
+                  borderColor: Colors.black,
+                  fillColor: Colors.grey,
+                  borderWidth: 2,
+                  selectedBorderColor: Colors.black,
+                  selectedColor: Colors.white,
+                  borderRadius: BorderRadius.circular(0),
+                  children: [
+                    Icon(Icons.wb_sunny_outlined),
+                    Icon(Icons.nightlight_round)
+                  ],
+                  isSelected: isSelected,
+                  onPressed: (int index) {
+                    setState(() {
+                      for (int i = 0; i < isSelected.length; i++) {
+                        isSelected[i] = i == index;
+                      }
+                    });
+                  },
+                ),
               ),
             ],
           ),

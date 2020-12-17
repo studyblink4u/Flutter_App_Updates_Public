@@ -15,10 +15,15 @@ class _RedditListViewState extends State<RedditListView> {
     List<Widget> objects = widget.redditObjects
         .map((e) => RedditHeadingCardView(redditObject: e))
         .toList();
-    return ListWheelScrollView(
-      children: objects,
-      itemExtent: 100.0,
-      offAxisFraction: -0.5,
+    return Container(
+      child: ListWheelScrollView(
+        physics: FixedExtentScrollPhysics(),
+        overAndUnderCenterOpacity: 0.8,
+        squeeze: 0.9,
+        children: objects,
+        itemExtent: 100.0,
+        offAxisFraction: 0.5,
+      ),
     );
   }
 }

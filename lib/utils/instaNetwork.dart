@@ -7,7 +7,6 @@ class InstaNetwork {
     final response = await http.get(url).then((value) {
       return value;
     });
-
     return jsonDecode(response.body);
   }
 }

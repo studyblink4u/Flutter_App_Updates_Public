@@ -17,7 +17,6 @@ class TweetObjectList {
     } else {
       addObject(dataList, tweetObjectList);
     }
-    print(tweetObjectList);
     return tweetObjectList;
   }
 
@@ -27,9 +26,15 @@ class TweetObjectList {
     var lang = child['lang'];
     var ref = child['referenced_tweets'];
     var mediaUrl;
+    var mediaKey;
+    try {
+      mediaKey = child['attachments']['media_keys'][0];
+    } catch (error) {
+      mediaKey = null;
+    }
     if (text != null && lang != null && lang == 'en' && ref == null) {
       url = extractUrl(text: child['text']);
-      var mediaKey = child['attachments']['media_keys'][0];
+
       if (mediaKey != null) {
         for (var anotherChild in jsonResponse['includes']['media']) {
           if (anotherChild['media_key'] == mediaKey) {

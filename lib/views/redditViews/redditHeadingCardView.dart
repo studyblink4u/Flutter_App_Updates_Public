@@ -28,41 +28,67 @@ class _RedditHeadingCardViewState extends State<RedditHeadingCardView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
-      padding: EdgeInsets.only(bottom: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: image,
-          ),
-          SizedBox(
-            width: 10.0,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.redditObject.getUpdateName(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  softWrap: true,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    widget.redditObject.getPostDay(),
-                    textAlign: TextAlign.start,
+      padding: EdgeInsets.all(2.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          gradient: LinearGradient(colors: [
+            Colors.pink,
+            Colors.pinkAccent,
+            Colors.purpleAccent,
+            Colors.purple,
+            Colors.deepPurpleAccent,
+            Colors.deepPurple,
+            Colors.deepPurpleAccent,
+            Colors.purple,
+            Colors.purpleAccent,
+            Colors.pinkAccent,
+            Colors.pink,
+            Colors.pinkAccent,
+            Colors.purpleAccent,
+            Colors.purple,
+            Colors.deepPurpleAccent,
+            Colors.deepPurple,
+            Colors.deepPurpleAccent,
+            Colors.purple,
+            Colors.purpleAccent,
+            Colors.pinkAccent,
+            Colors.pink,
+          ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(5.0))),
+        height: 100.0,
+        padding: EdgeInsets.symmetric(vertical: 5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flexible(child: image),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.redditObject.getUpdateName(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    softWrap: true,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      widget.redditObject.getPostDay(),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

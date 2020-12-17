@@ -31,11 +31,11 @@ class _TweetListViewState extends State<TweetListView> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      pageSnapping: false,
-      itemBuilder: (context, index) {
-        return objects[index];
-      },
+    return ListView.separated(
+      itemBuilder: (context, item) => objects[item],
+      separatorBuilder: (context, item) => SizedBox(
+        height: 20.0,
+      ),
       itemCount: objects.length,
     );
   }

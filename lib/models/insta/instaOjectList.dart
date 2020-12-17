@@ -31,7 +31,6 @@ class InstaObjectList {
           unixTime: unixTime,
           mediaUrl: mediaUrl));
     }
-    print(instaObjectList.length);
     return instaObjectList;
   }
 }

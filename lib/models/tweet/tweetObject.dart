@@ -15,7 +15,11 @@ class TweetObject {
   }
 
   String getMediaUrl() {
-    return mediaUrl;
+    if (mediaUrl != null) {
+      return mediaUrl;
+    } else {
+      return 'https://twitter.com/PlayCODMobile/photo';
+    }
   }
 
   String getTweetUrl() {

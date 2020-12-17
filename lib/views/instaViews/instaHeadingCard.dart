@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class InstaHeadingCardView extends StatefulWidget {
   final instaObject;
-  final key;
-  InstaHeadingCardView({this.instaObject, this.key});
+  final bool mode;
+  InstaHeadingCardView({this.instaObject, this.mode});
 
   @override
   _InstaHeadingCardViewState createState() => _InstaHeadingCardViewState();
@@ -28,83 +28,77 @@ class _InstaHeadingCardViewState extends State<InstaHeadingCardView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.15 >= 75.0
-          ? (MediaQuery.of(context).size.height * 0.70) - 55.0
-          : MediaQuery.of(context).size.height * 0.55,
-      width: MediaQuery.of(context).size.width * 0.80,
-      child: Container(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            RotatedBox(
-              quarterTurns: 3,
-              child: Text(
-                widget.instaObject.getPostDay(),
-                textAlign: TextAlign.start,
-              ),
+      padding: EdgeInsets.all(10.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          RotatedBox(
+            quarterTurns: 3,
+            child: Text(
+              widget.instaObject.getPostDay(),
+              textAlign: TextAlign.start,
+              style:
+                  TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
             ),
-            Expanded(
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(2.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  gradient: LinearGradient(colors: [
+                    Colors.pink,
+                    Colors.pinkAccent,
+                    Colors.purpleAccent,
+                    Colors.purple,
+                    Colors.deepPurpleAccent,
+                    Colors.deepPurple,
+                    Colors.deepPurpleAccent,
+                    Colors.purple,
+                    Colors.purpleAccent,
+                    Colors.pinkAccent,
+                    Colors.pink,
+                    Colors.pinkAccent,
+                    Colors.purpleAccent,
+                    Colors.purple,
+                    Colors.deepPurpleAccent,
+                    Colors.deepPurple,
+                    Colors.deepPurpleAccent,
+                    Colors.purple,
+                    Colors.purpleAccent,
+                    Colors.pinkAccent,
+                    Colors.pink,
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
               child: Container(
-                padding: EdgeInsets.all(2.0),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    gradient: LinearGradient(
-                        colors: [
-                          Colors.pink,
-                          Colors.pinkAccent,
-                          Colors.purpleAccent,
-                          Colors.purple,
-                          Colors.deepPurpleAccent,
-                          Colors.deepPurple,
-                          Colors.deepPurpleAccent,
-                          Colors.purple,
-                          Colors.purpleAccent,
-                          Colors.pinkAccent,
-                          Colors.pink,
-                          Colors.pinkAccent,
-                          Colors.purpleAccent,
-                          Colors.purple,
-                          Colors.deepPurpleAccent,
-                          Colors.deepPurple,
-                          Colors.deepPurpleAccent,
-                          Colors.purple,
-                          Colors.purpleAccent,
-                          Colors.pinkAccent,
-                          Colors.pink,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter)),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  padding: EdgeInsets.all(5.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                          child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              child: image)),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        widget.instaObject.getUpdateName(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        softWrap: true,
-                      ),
-                    ],
-                  ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                ),
+                padding: EdgeInsets.all(5.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                        child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            child: image)),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      widget.instaObject.getUpdateName(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      softWrap: true,
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
