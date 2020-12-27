@@ -3,32 +3,30 @@ import 'package:flutter/material.dart';
 
 class InstaListView extends StatelessWidget {
   final List instaObjects;
-  final bool mode;
-  InstaListView({this.instaObjects, this.mode});
+  InstaListView({this.instaObjects});
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> objects = instaObjects
-        .map((e) => InstaHeadingCardView(instaObject: e, mode: mode))
-        .toList();
+    List<Widget> objects =
+        instaObjects.map((e) => InstaHeadingCardView(instaObject: e)).toList();
     return animatedSwitcher(objects: objects);
   }
 }
 
-class simpleHorizontalRow extends StatelessWidget {
-  const simpleHorizontalRow({
-    Key key,
-    @required this.objects,
-  }) : super(key: key);
-
-  final List<Widget> objects;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        scrollDirection: Axis.horizontal, child: Row(children: objects));
-  }
-}
+// class simpleHorizontalRow extends StatelessWidget {
+//   const simpleHorizontalRow({
+//     Key key,
+//     @required this.objects,
+//   }) : super(key: key);
+//
+//   final List<Widget> objects;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//         scrollDirection: Axis.horizontal, child: Row(children: objects));
+//   }
+// }
 
 class animatedSwitcher extends StatefulWidget {
   final List<Widget> objects;

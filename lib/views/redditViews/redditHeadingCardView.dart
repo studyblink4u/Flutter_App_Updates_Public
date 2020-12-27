@@ -1,8 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:codm/models/reddit/redditObject.dart';
+import 'package:codm/views/redditViews/redditView.dart';
 import 'package:flutter/material.dart';
 
 class RedditHeadingCardView extends StatefulWidget {
-  final redditObject;
+  final RedditObject redditObject;
   RedditHeadingCardView({this.redditObject});
   @override
   _RedditHeadingCardViewState createState() => _RedditHeadingCardViewState();
@@ -13,16 +14,14 @@ class _RedditHeadingCardViewState extends State<RedditHeadingCardView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     image = Image.network(widget.redditObject.getThumnail());
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
     precacheImage(image.image, context);
+    super.didChangeDependencies();
   }
 
   @override

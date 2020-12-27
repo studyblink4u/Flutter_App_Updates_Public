@@ -2,6 +2,7 @@ import 'package:codm/models/insta/instaObject.dart';
 
 class InstaObjectList {
   final jsonResponse;
+
   InstaObjectList({this.jsonResponse});
 
   List<InstaObject> getObjectList() {
@@ -10,16 +11,22 @@ class InstaObjectList {
     List<InstaObject> instaObjectList = [];
 
     for (var child in htmlBody) {
-      var heading;
+      String heading;
+      String thumbnail;
       try {
         heading =
             child['node']['edge_media_to_caption']['edges'][0]['node']['text'];
       } catch (error) {
         heading = '';
       }
-      var thumbnail = child['node']['display_url'];
-      int unixTime = child['node']['taken_at_timestamp'];
-      var mediaUrl;
+      try {
+        thumbnail = child['node']['display_url'];
+      } catch (e) {
+        thumbnail = '';
+      }
+
+      int unixTime = child['node']['taken_at_timestamp'] ?? 0.0;
+      String mediaUrl;
       if (child['node']['is_video']) {
         mediaUrl = child['node']['selftext_html'];
       } else {

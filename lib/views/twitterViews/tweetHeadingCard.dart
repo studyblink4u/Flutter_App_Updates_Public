@@ -1,11 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:codm/main.dart';
+import 'package:codm/konstants.dart';
 import 'package:codm/models/tweet/tweetObject.dart';
+import 'package:codm/webViewPage.dart';
 import 'package:flutter/material.dart';
 
 class TweetHeadingCardView extends StatefulWidget {
   final TweetObject tweetObjects;
-  TweetHeadingCardView({this.tweetObjects});
+  final Icon pinnedHead;
+  TweetHeadingCardView({this.tweetObjects, this.pinnedHead});
 
   @override
   _TweetHeadingCardViewState createState() => _TweetHeadingCardViewState();
@@ -16,7 +17,6 @@ class _TweetHeadingCardViewState extends State<TweetHeadingCardView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     image = Image.network(widget.tweetObjects.getMediaUrl());
   }
@@ -40,48 +40,37 @@ class _TweetHeadingCardViewState extends State<TweetHeadingCardView> {
         padding: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            gradient: LinearGradient(colors: [
-              Colors.pink,
-              Colors.pinkAccent,
-              Colors.purpleAccent,
-              Colors.purple,
-              Colors.deepPurpleAccent,
-              Colors.deepPurple,
-              Colors.deepPurpleAccent,
-              Colors.purple,
-              Colors.purpleAccent,
-              Colors.pinkAccent,
-              Colors.pink,
-              Colors.pinkAccent,
-              Colors.purpleAccent,
-              Colors.purple,
-              Colors.deepPurpleAccent,
-              Colors.deepPurple,
-              Colors.deepPurpleAccent,
-              Colors.purple,
-              Colors.purpleAccent,
-              Colors.pinkAccent,
-              Colors.pink,
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            gradient: LinearGradient(
+                colors: kLongGradient,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter)),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
           ),
           padding: EdgeInsets.all(5.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
             children: [
-              Text(
-                widget.tweetObjects.getUpdateName(),
-                softWrap: true,
+              Align(
+                alignment: Alignment.topRight,
+                child: widget.pinnedHead ?? Container(),
               ),
-              SizedBox(
-                height: 10.0,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    widget.tweetObjects.getUpdateName(),
+                    softWrap: true,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      child: image),
+                ],
               ),
-              ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  child: image),
             ],
           ),
         ),

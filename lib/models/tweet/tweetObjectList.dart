@@ -1,6 +1,5 @@
 import 'package:codm/konstants.dart';
 import 'package:codm/models/tweet/tweetObject.dart';
-import 'package:flutter/material.dart';
 
 class TweetObjectList {
   final jsonResponse;
@@ -25,6 +24,7 @@ class TweetObjectList {
     var text = textProcess(text: child['text']);
     var lang = child['lang'];
     var ref = child['referenced_tweets'];
+    String profilePicUrl;
     var mediaUrl;
     var mediaKey;
     try {
@@ -33,6 +33,7 @@ class TweetObjectList {
       mediaKey = null;
     }
     if (text != null && lang != null && lang == 'en' && ref == null) {
+      print('text ---> ${child['text']}');
       url = extractUrl(text: child['text']);
 
       if (mediaKey != null) {
@@ -52,7 +53,11 @@ class TweetObjectList {
         }
       }
       tweetObjectList.add(TweetObject(
-          updateName: text, language: lang, mediaUrl: mediaUrl, tweetUrl: url));
+          updateName: text,
+          language: lang,
+          mediaUrl: mediaUrl,
+          tweetUrl: url,
+          profilePhotoUrl: profilePicUrl));
     }
   }
 }

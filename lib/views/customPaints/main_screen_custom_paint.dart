@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MainScreenTopCustomPaint extends CustomPainter {
+class MainScreenCustomPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path path = Path();

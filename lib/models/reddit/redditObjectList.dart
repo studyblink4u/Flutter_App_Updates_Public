@@ -9,10 +9,11 @@ class RedditObjectList {
   List<RedditObject> getObjectList() {
     final htmlBody = jsonResponse['data']['children'];
     for (var child in htmlBody) {
-      var heading = child['data']['title'];
-      var thumbnail = child['data']['thumbnail'];
-      double unixTime = child['data']['created_utc'];
-      var htmlText = child['data']['selftext_html'];
+      String heading = child['data']['title'] ?? 'Codm - Update';
+      String thumbnail = child['data']['thumbnail'] ?? 'self';
+      double unixTime = child['data']['created_utc'] ?? 0.0;
+      String htmlText =
+          child['data']['selftext_html'] ?? 'Sorry!!!  Content broken';
       redditObjects.add(RedditObject(
           thumnail: thumbnail,
           updateName: heading,

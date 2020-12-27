@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:codm/konstants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class InstaHeadingCardView extends StatefulWidget {
   final instaObject;
-  final bool mode;
-  InstaHeadingCardView({this.instaObject, this.mode});
+  InstaHeadingCardView({this.instaObject});
 
   @override
   _InstaHeadingCardViewState createState() => _InstaHeadingCardViewState();
@@ -21,8 +22,8 @@ class _InstaHeadingCardViewState extends State<InstaHeadingCardView> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     precacheImage(image.image, context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -36,41 +37,26 @@ class _InstaHeadingCardViewState extends State<InstaHeadingCardView> {
         children: [
           RotatedBox(
             quarterTurns: 3,
-            child: Text(
-              widget.instaObject.getPostDay(),
-              textAlign: TextAlign.start,
-              style:
-                  TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
-            ),
+            child:
+                Consumer<ChangeModeProvider>(builder: (context, value, child) {
+              return Text(
+                widget.instaObject.getPostDay(),
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    color: value.getMode ? Colors.pink : Colors.purple,
+                    fontWeight: FontWeight.bold),
+              );
+            }),
           ),
           Expanded(
             child: Container(
               padding: EdgeInsets.all(2.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  gradient: LinearGradient(colors: [
-                    Colors.pink,
-                    Colors.pinkAccent,
-                    Colors.purpleAccent,
-                    Colors.purple,
-                    Colors.deepPurpleAccent,
-                    Colors.deepPurple,
-                    Colors.deepPurpleAccent,
-                    Colors.purple,
-                    Colors.purpleAccent,
-                    Colors.pinkAccent,
-                    Colors.pink,
-                    Colors.pinkAccent,
-                    Colors.purpleAccent,
-                    Colors.purple,
-                    Colors.deepPurpleAccent,
-                    Colors.deepPurple,
-                    Colors.deepPurpleAccent,
-                    Colors.purple,
-                    Colors.purpleAccent,
-                    Colors.pinkAccent,
-                    Colors.pink,
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                  gradient: LinearGradient(
+                      colors: kLongGradient,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

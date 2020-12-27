@@ -5,12 +5,6 @@ import 'dart:math' as math;
 class MovingDot {
   List<Widget> dots = [];
 
-  Duration randomDuration() {
-    return Duration(
-      seconds: math.Random().nextInt(100) + 20,
-    );
-  }
-
   List<Widget> getDots({int dotCount}) {
     if (dots.isNotEmpty) {
       return dots;
@@ -32,8 +26,6 @@ class Dots extends StatefulWidget {
 
 class _DotsState extends State<Dots> with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  Animation colorAnimation;
-  Animation positionAnimation;
   double rt;
 
   Color randomColor() {

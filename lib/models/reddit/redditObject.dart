@@ -34,16 +34,19 @@ class RedditObject {
   }
 
   String getPostDay() {
-    var time =
-        DateTime.fromMillisecondsSinceEpoch(unixTime * 1000, isUtc: true);
-    var now = DateTime.now();
-    int original = now.difference(time).inDays;
-    if (original == 0) {
-      return 'Posted Today';
-    } else if (original == 1) {
-      return '$original day ago';
-    } else {
-      return '$original days ago';
-    }
+    if (unixTime > 0) {
+      var time =
+          DateTime.fromMillisecondsSinceEpoch(unixTime * 1000, isUtc: true);
+      var now = DateTime.now();
+      int original = now.difference(time).inDays;
+      if (original == 0) {
+        return 'Posted Today';
+      } else if (original == 1) {
+        return '$original day ago';
+      } else {
+        return '$original days ago';
+      }
+    } else
+      return 'Date Unknown';
   }
 }

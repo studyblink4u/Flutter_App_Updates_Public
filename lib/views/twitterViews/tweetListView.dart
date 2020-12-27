@@ -15,12 +15,16 @@ class _TweetListViewState extends State<TweetListView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    objects = (widget.pinnedTweetObjects.isNotEmpty
+    objects = (widget.pinnedTweetObjects.isNotEmpty &&
+            widget.pinnedTweetObjects != null
         ? widget.pinnedTweetObjects
             .map((e) => TweetHeadingCardView(
                   tweetObjects: e,
+                  pinnedHead: Icon(
+                    Icons.push_pin_sharp,
+                    color: Colors.blue,
+                  ),
                 ))
             .toList()
         : [])
