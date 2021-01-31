@@ -16,7 +16,7 @@ RegExp kRegexUrl = RegExp(
 String kMailId = 'studyblink4u@gmail.com';
 
 String kAppDescription =
-    'About: \n\nA Simple App which brings recent updates on Call Of Duty: Mobile.\n';
+    'About: \n\nA Simple App which brings recent updates on a game.\n';
 
 List<Color> kLongGradient = [
   Colors.pink,

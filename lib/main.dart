@@ -21,18 +21,15 @@ class MyApp extends StatelessWidget {
     ScreenSize(size: WidgetsBinding.instance.window.physicalSize);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(title: 'Flutter Demo Home Page'));
+        home: MyHomePage());
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -139,7 +136,6 @@ class _MyHomePageState extends State<MyHomePage>
   void _onDragStart(DragStartDetails details) {
     bool isDragOpenFromLeft = _animationController.isDismissed;
     bool isDragCloseFromRight = _animationController.isCompleted;
-    print('$isDragOpenFromLeft \n $isDragCloseFromRight');
     _canBeDragged = isDragOpenFromLeft || isDragCloseFromRight;
   }
 

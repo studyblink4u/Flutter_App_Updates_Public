@@ -33,7 +33,6 @@ class TweetObjectList {
       mediaKey = null;
     }
     if (text != null && lang != null && lang == 'en' && ref == null) {
-      print('text ---> ${child['text']}');
       url = extractUrl(text: child['text']);
 
       if (mediaKey != null) {
