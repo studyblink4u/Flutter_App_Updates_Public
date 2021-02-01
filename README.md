@@ -1,6 +1,8 @@
-# codm
+# CoDM
 
-codm
+This is a Flutter App(Android) which brings updates on Call of Duty: Mobile from various social media through public APIs.
+
+An Animation heavy app which uses rive, custom paint and built-in flutter animations. 
 
 ## Getting Started
 
