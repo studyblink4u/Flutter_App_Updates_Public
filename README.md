@@ -4,6 +4,8 @@ This is a Flutter App(Android) which brings updates on Call of Duty: Mobile from
 
 An Animation heavy app which uses rive, custom paint and built-in flutter animations. 
 
+[Play Store Link](https://play.google.com/store/apps/details?id=com.studyblink4u.updates)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
