@@ -1,4 +1,4 @@
-import 'package:codm/views/twitterViews/tweetHeadingCard.dart';
+import 'package:codm/views/twitterViews/tweet_heading_card.dart';
 import 'package:flutter/material.dart';
 
 class TweetListView extends StatefulWidget {

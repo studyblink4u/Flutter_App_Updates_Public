@@ -1,4 +1,4 @@
-import 'package:codm/views/instaViews/instaHeadingCard.dart';
+import 'package:codm/views/instaViews/insta_heading_card.dart';
 import 'package:flutter/material.dart';
 
 class InstaListView extends StatelessWidget {

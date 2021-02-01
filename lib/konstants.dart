@@ -4,9 +4,9 @@ import 'package:codm/models/tweet/tweetObjectList.dart';
 import 'package:codm/utils/instaNetwork.dart';
 import 'package:codm/utils/redditNetwork.dart';
 import 'package:codm/utils/tweetNetwork.dart';
-import 'package:codm/views/instaViews/instaListView.dart';
-import 'package:codm/views/redditViews/redditListView.dart';
-import 'package:codm/views/twitterViews/tweetListView.dart';
+import 'package:codm/views/instaViews/insta_list_view.dart';
+import 'package:codm/views/redditViews/reddit_list_view.dart';
+import 'package:codm/views/twitterViews/tweet_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

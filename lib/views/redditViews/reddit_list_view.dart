@@ -1,6 +1,6 @@
 import 'package:codm/models/reddit/redditObject.dart';
-import 'package:codm/views/redditViews/redditHeadingCardView.dart';
-import 'package:codm/views/redditViews/redditView.dart';
+import 'package:codm/views/redditViews/reddit_heading_card_view.dart';
+import 'package:codm/views/redditViews/reddit_view.dart';
 import 'package:flutter/material.dart';
 
 class RedditListView extends StatefulWidget {

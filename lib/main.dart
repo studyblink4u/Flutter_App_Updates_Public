@@ -3,7 +3,7 @@ import 'package:codm/views/animations/moving_dot_animation.dart';
 import 'package:codm/konstants.dart';
 import 'package:codm/screenSize.dart';
 import 'package:codm/views/drawerScreen/drawer_screen.dart';
-import 'file:///D:/Flutter/codm/lib/views/MainScreen/main_screen.dart';
+import 'package:codm/views/MainScreen/main_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
